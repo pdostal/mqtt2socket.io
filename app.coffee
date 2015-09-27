@@ -7,12 +7,10 @@ io = require('socket.io') http
 app.use express.static 'public'
 
 Mqtt = require 'mqtt'
-#mqtt = Mqtt.connect 'mqtt://mqtt.sh.cvut.cz'
-#mqtt = Mqtt.connect 'mqtt://mqtt.siliconhill.cz'
-mqtt = Mqtt.connect 'mqtt://test.mosquitto.org'
+mqtt = Mqtt.connect { host: 'iot.siliconhill.cz', port: 1883, protocolId: 'MQIsdp', protocolVersion: 3 }
 
 mqtt.on 'connect', ->
-  mqtt.subscribe '/pdostalcz/+/message'
+  mqtt.subscribe '/#'
 
 mqtt.on 'message', (topic, message) ->
   console.log moment.utc().format() + ' ' + topic.toString() + ' ' + message.toString()
