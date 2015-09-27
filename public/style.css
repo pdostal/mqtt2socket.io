@@ -1,4 +1,6 @@
-#mqtt { margin-left: 5px; }
+#mqtt { margin-left: 5px; list-style-type: none; }
 #mqtt span { margin-right: 1em; }
+#mqtt .timestamp { display: inline-block; width: 12.5em; }
+#mqtt .topic { display: inline-block; width: 15em; }
 h1 { margin-top: 0px; }
 
