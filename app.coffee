@@ -19,9 +19,10 @@ mqtt.on 'connect', ->
   mqtt.subscribe '/#'
   console.log moment.utc().format() + ' mqtt connected'
 
-mqtt.on 'message', (topic, message) ->
+mqtt.on 'message', (topic, message, packet) ->
   console.log moment.utc().format() + ' ' + topic.toString() + ' ' + message.toString()
-  send = { 'timestamp': moment.utc().format(), 'topic': topic.toString(), 'message': message.toString() }
+  send = { 'timestamp': moment.utc().format(), 'topic': topic.toString(), 'dup': packet.dup,
+  'retain': packet.retain, 'qos': packet.qos, 'message': message.toString(), 'length': packet.length }
   io.emit 'mqtt', send
   redis.hmset 'mqtt:'+topic, send, (err, reply) ->
 
